@@ -20,8 +20,8 @@ module.exports = {
 			'@logos': path.resolve(__dirname, 'src/assets/logos/'),
         }
     },
-    module: { // loaders para cada tipo de archivo
-        rules: [ // reglas para usar
+    module: { //lista de reglas respecto a los loaders
+        rules: [ // reglas para Babel
             {
                 test: /\.(js|jsx)$/, // extensiones en las cuales actuará babel
                 exclude: /node_modules/, // siempre excluir node modules 
@@ -29,15 +29,15 @@ module.exports = {
                     loader: 'babel-loader' // babel 
                 }
             },
-            {
+            {//Reglas para HTML loader
                 test: /\.html$/, // extensiones html
                 use: [
                     {
-                        loader: 'html-loader' // loader a usar
+                        loader: 'html-loader' // HTML loader
                     }
                 ]
             },
-            {
+            {// reglas de loaders de estilos
                 test: /\.(css|s[ac]ss)$/i, //extenciones de estilos
 				use: [
 					"style-loader", //loaderes de estilos
@@ -45,13 +45,13 @@ module.exports = {
 					"sass-loader",
 				],
             },
-            {
-                test: /\.(png|jp(e*)g|svg|gif)$/,
+            {// regla de loaders de imagenes
+                test: /\.(png|jp(e*)g|svg|gif)$/, // extenciones de imagenes
                 type: 'asset'
             }
         ]
     },
-    plugins: [ // plugins 
+    plugins: [ // configuracion de los plugins:  
         new HtmlWebpackPlugin({ // instanciamos el plugin para html 
             template: './public/index.html', // archivo raíz a transformar
             filename: './index.html' // el archivo resultante
@@ -60,8 +60,8 @@ module.exports = {
 			filename: '[name].css' //archivo resultante
 		}),
     ],
-    devServer:{
-        static: path.join(__dirname, 'dist'),
+    devServer:{ //configuracion del servidor 
+        static: path.join(__dirname, 'public'),
         compress:true,
         port:3005,
         historyApiFallback: true,
